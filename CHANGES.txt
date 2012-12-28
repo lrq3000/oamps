@@ -1,0 +1,79 @@
+OPENARENA MULTI PURPOSE SERVERS LAUNCHER FOR LINUX (OAMPS.SH) CHANGELOG
+
+TOADD:
+- hping3 used instead of hping (hping still works but hping2 produce a bug and does not work, and is aliased hping, so now hping3 is required, or you can revert to hping v1 if you want)
+- no more asking of sudo password if unnecessary to launch hping
+
+=== TODO :
+- oamps log reader
+- use strace to watch processes for crash ?
+- implement an integration with monit ? http://mmonit.com/monit/
+
+=== 1.5.4 to 1.5.8 (2011-08-11) :
+- fixed : --addcron now write the right path into the cron job (--binfullpath and --basepath is no more needed for the --addcron parameter to work).
+- change: made the script more portable by using a generic shebang (see http://www.cyberciti.biz/tips/finding-bash-perl-python-portably-using-env.html or http://www.linuxquestions.org/questions/programming-9/difference-between-bin-bash-and-bin-sh-693231/).
+- fixed : --addcron doesn't write duplicates anymore (duplicates were based on different bash binaries : /bin/bash then /bin/sh for example).
+- change: updated the sample launchers.
+
+=== 1.5.1 to 1.5.4 :
+- fixed : check for already existing screen or process now returns only the exact screen or config name that you are looking for (eg: superCTF2 won't be detected if you issue -s superCTF).
+- fixed : --kill and --exec functions now search loosely for a screen or process config name (eg: CTF will return superCTF and CTF2)
+- fixed : --kill process (without screen) now only detect game servers (based on the binary), so the script shouldn't kill your other tools by mistake (like b3 bot)
+- added : --screenname2 or -s2 to use the config name as the screen name (particularly useful when combined with --multiple)
+- fixed : now supports screen names with special characters (like an underscore or a dot)
+
+=== 1.5.0 to 1.5.1 :
+- fixed : date is now year-month-day instead of year-day-month.
+
+=== 1.4.9 to 1.5.0 :
+- fixed : logs rotation does not stop the game server from logging output (before, the logs rotator deleted then recreated an empty log, but meanwhile, in this split second, the game server could by chance get a denied access to the file, now it won't as the log never gets erased)
+
+=== 1.4.7 to 1.4.9 :
+- changed : logs rotation is now disabled by default, and you can now rotate logs without changing the name (no more g_log at commandline).
+- changed : ordered and commented a little better the variables check part.
+- added : license and readme
+
+=== 1.3.3 to 1.4.7 :
+- added : many debug messages (particularly for GTV).
+- added : unique ID and date is now prepended to any output message.
+- fixed : supplementary blank space when constructing the cron job.
+- fixed : gtv wasn't launched from cron jobs.
+- change: -k now shutdown processes based on the config file (use -c)
+- added : new -k2 or --killall2 argument to really kill all game processes or screens without any distinction (similar to the old --killall)
+- added : Enhance kill screens (-k and -r) and kill all screens (-k2) functions : should now force kill even if the screen was never attached
+- added : junk now cleans the gtv delay temp folder when -tv.
+- fixed : crashlog not being renamed when no timelimit (-w 0).
+- added : rehabilited basepath separately from homepath (both can now be set at the same time) and reworked their description in the help.
+- minus : removed forcebasepath (use --basepath or -b instead of -b2 and --forcebasepath, and --homepath or -h for homepath).
+- fixed : check_crashlog (-w) for processes without screen now works.
+- fixed : the file existence checker now verify in the right folders (homepath and basepath).
+- added : --execconfig or -ec can now be supplied with an absolute path, or a path relative to the scripts directory.
+- fixed : check_crashlog (-w) now terminate all screens when launching multiple servers using -m.
+- added : crashlog is now renamed with a human readable date and time (instead of timestamp).
+- change: time is now formatted as international ("Year-Month-Day Hour:Minutes:Seconds").
+
+=== 1.2.8 to 1.3.3 :
+- fixed : Fixed the missing quotes bug for arguments strings containing spaces when adding a cron job
+- fixed : Addcron now automatically cleanup and remove the temp cron file it creates
+- fixed : The cron temporary file does now gets a unique name each time (with time) to avoid collision
+- fixed : The cron temporary file is now always created in the same folder as where the script resides
+- fixed : The output log (-o) is now always created relative to the script's folder (before it was problematic with cron, the output would be saved elsewhere)
+
+=== 1.2.5 to 1.2.8 :
+
+- added : Added the ability to show current date and time at launch
+- added : Added an output logging parameter -o or --outputlog. You don't need to use the hack "2>&1 >> servers-start.log" anymore!
+- added : Added a --version arg to show current script version and infos
+- change: Silenced the script (no more annoying banner, you can still show it with --version)
+
+=== v1.1.4 to v1.2.5 :
+- added : lan switch (no heartbeat, dedicated 1) with --lan
+- added : add a way to add var args (like +set whatever we want : use -ext arg)
+- added : crashlog relaunch (automatic but timespan configurable with -w or --watch)
+- added : added some checks (like file existance, executability and readability)
+- added : exec directly a command with -e or --exec
+- added : added a way to exec a config with -ec or --execconfig
+- fixed : fixed some typos
+- change: killall (-k arg) now kill screens based on the name supplied in --screenname
+- fixed : Fixed a bug in paths when launching several configs at once with -m argument
+- added : can now force basepath instead of homepath with -b2 or --forcebasepath
