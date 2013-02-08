@@ -3,6 +3,11 @@ oamps
 
 OpenArena multi-purpose servers launcher is an automatic server management tool to be used with Cron. Includes GTV (GamersTV) management features.
 
+License
+-----
+
+Oamps is licensed under the GNU Lesser General Public License (LGPL) v3 or above.
+
 Usage
 -----
 
