@@ -1,14 +1,25 @@
-oamps
-=====
+OAMPS (OpenArena multi-purpose servers launcher)
+================================================
 
-OpenArena multi-purpose servers launcher is an automatic server management tool to be used with Cron. Includes GTV (GamersTV) management features.
+OAMPS (OpenArena multi-purpose servers launcher) is an automatic server management tool to be used with Cron. Includes GTV (GamersTV) management features.
 
-License
+LICENSE
 -----
 
 Oamps is licensed under the GNU Lesser General Public License (LGPL) v3 or above.
 
-Usage
+FAQ
+---
+
+- I saw it is possible to send commands to a server, is it possible to send commands to a remote server via rcon?
+
+No. The purpose of oamps is to manage servers, and you can't do that remotely, you need to execute oamps on the same computer and user account as the servers to manage them.
+
+Although oamps provide some functions to send commands to servers (such as --exec and --execdelay), they are merely provided as a mean to ease servers administration by automating some tasks, but remotely accessing a server via rcon is not in this scope. Plus, oamps only sends commands, it does not show any feedback or result.
+
+If you want to remotely manage your server via rcon, there are a lot of tools to do just that, such as crcon (opensource, http://sourceforge.net/projects/crcon/).
+
+USAGE
 -----
 
 Launch an OpenArena server (or any q3 based game) with pre-configured features. Include GTV (GamersTV) management features.

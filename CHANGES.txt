@@ -1,13 +1,19 @@
 OPENARENA MULTI PURPOSE SERVERS LAUNCHER FOR LINUX (OAMPS.SH) CHANGELOG
+=======================================================================
 
-TOADD:
-- hping3 used instead of hping (hping still works but hping2 produce a bug and does not work, and is aliased hping, so now hping3 is required, or you can revert to hping v1 if you want)
-- no more asking of sudo password if unnecessary to launch hping
-
-=== TODO :
-- oamps log reader
-- use strace to watch processes for crash ?
-- implement an integration with monit ? http://mmonit.com/monit/
+=== 1.5.8 to 1.6.7 (2012-03-26):
+- added: --countdown and --countdownmessage parameters to warn players before shutting down / restarting the server and disconnecting them along the way
+- fixed: --config can now contain the extension .cfg or not, as you like
+- fixed: --gtvexec didn't work, now it does
+- added: --gtvbasepath to change the basepath of gtv and --gtvhomepath to change the homepath of gtv
+- fixed: GTV basepath and homepath now is by default relative to the GTV binary, instead of the game server binary
+- fixed: --homepath now defaults to where the game server binary resides (before it defaulted to the script's location)
+- fixed: nohup instead of $term and at the end   > /dev/null 2>&1 &
+eg: nohup /game/oa/ctf/oa_ded.i386 +set fs_game excessiveplus +set fs_homepath "/game/oa/ctf" +set dedicated 2 +set vm_game 0 +set net_port 27960 +exec server.cfg  > /dev/null 2>&1 &
+explanation on: http://oa.goquake.com/wp-content/e+_docs/OpenArena_E+_Server_Step-by-Step_Setup_Guide.txt
+- added: accepter les chemins relatifs pour tout ce qui est possible (comme homepath, basepath, gtvh, gtvb, binpath, gtvbinpath, etc.) -> faire une fonction avec readlink -f
+permettra de faire des launchers portables et distribuables qui marcheront dans un package sans aucune modif.
+- .cfg auto add pour gtvconfig aussi? ou au moins mettre dans help qu'il faut extension
 
 === 1.5.4 to 1.5.8 (2011-08-11) :
 - fixed : --addcron now write the right path into the cron job (--binfullpath and --basepath is no more needed for the --addcron parameter to work).
