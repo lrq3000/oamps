@@ -3,10 +3,59 @@ OAMPS (OpenArena multi-purpose servers launcher)
 
 OAMPS (OpenArena multi-purpose servers launcher) is an automatic server management tool to be used with Cron. Includes GTV (GamersTV) management features.
 
+DESCRIPTION
+-----------
+
+This script is made to ease the life of any game server administrator of any Quake 3 Arena based game (particularly for OpenArena, but should work for any other).
+
+What this script can do for you :
+
+  .it helps you construct perfect commandlines
+
+  .ease the manual maintenance by bringing down the level of complexity of your bash file (yes you can bash this script, and even output to a file !)
+
+  .you can directly manage everything with this script (no need for manual line coding)
+
+  .adds advanced functionnalities unavailable otherwise, like batching some automatic /rcon say commands.
+
+  .can automatically add itself to a cronjob
+
+  .detects server crashs and can act automatically
+
+  .notify you of everything that happens (at screen or in a log)
+
+  .2 modes for launching servers : in a background process, or in a screen. All functionnalities are available for both of these modes
+
+  .logs rotation
+
+  .gtv management
+
+  .gtv connection with master listing server (shows your gtv server in the in-game servers browser)
+
+  .gtv auto room renaming
+
+And so many others, just type "sh oamps.sh --help" to get a full list of the features and some examples.
+
+To summary : if you're looking for a tool to automatically manage and maintain your servers, cleaning and restarting them everyday, watching over crash and such stuffs, then you've come over the right tool : OAMPS.SH !
+
 LICENSE
------
+-------
 
 Oamps is licensed under the GNU Lesser General Public License (LGPL) v3 or above.
+
+BASIC USAGE
+-----------
+
+    # chmod +x oamps.sh
+    # sh oamps.sh --help
+
+More examples will be given in the help (oamps.sh --help), or look in the samples folder to find some batch examples.
+
+GOING FURTHER
+-------------
+
+You can use monit to enhance functionnalities (like web remote start/stop) or to add a security layer.
+This script is compatible with Big Brother Bot >= 1.3.4 (it's compatible with previous versions as well, but the rotate log function will break B3 until you pause/unpause it or restart it, this bug should be fixed in newer B3 versions).
 
 FAQ
 ---
@@ -19,8 +68,8 @@ Although oamps provide some functions to send commands to servers (such as --exe
 
 If you want to remotely manage your server via rcon, there are a lot of tools to do just that, such as crcon (opensource, http://sourceforge.net/projects/crcon/).
 
-USAGE
------
+EXTENDED USAGE
+--------------
 
 Launch an OpenArena server (or any q3 based game) with pre-configured features. Include GTV (GamersTV) management features.
 
@@ -159,4 +208,12 @@ Exemples
   sh $SCRIPTNAME -n 0 -c oacl-edit-me -s oaclserver -ec 'morecommands.cfg' -ed 5 --- wait 5 seconds and sends all the commands contained inside 'morecommands.cfg' to the server at screen 'oaclserver'
   
   sh $SCRIPTNAME -n 0 -k -s oaclserver --- kill all servers with a screen name containing 'oaclserver'
-  
+
+
+
+CREDITS
+-------
+
+Thank's to Heap for supporting me.
+
+Thank's to my woman for not becoming crazy when I became obsessed with my work, and for her unbreakable and thoughtful affection. I love you, you wonderful being.
