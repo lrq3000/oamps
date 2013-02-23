@@ -61,7 +61,7 @@ uniqueid=$RANDOM # We call $RANDOM once and for all here because $RANDOM changes
 
 #=== No argument error
 if [ $# -lt 1 ]; then
-  echo "Type $SCRIPTNAME --help to get more infos."
+  echo "Type ./$SCRIPTNAME --help or bash $SCRIPTNAME --help to get more infos."
   exit
 fi
 
@@ -78,7 +78,7 @@ fi
 
 #=== Help message
 if [[ "$@" =~ "--help" ]]; then
-  echo "Usage: $SCRIPTNAME [OPTION1] [VALUE1] [OPTION2] [VALUE2]...
+  echo "Usage: ./$SCRIPTNAME [OPTION1] [VALUE1] [OPTION2] [VALUE2]...
 Launch an OpenArena server (or any q3 based game) with pre-configured features. Include GTV (GamersTV) management features.
 
   -a, --addcron          add a cron job for the current arguments (will store ALL arguments into current user's cron). Value is cron date (in the form mm hh jj MMM JJJ or @something (@weekly, @daily, @hourly, @reboot, etc...)
@@ -197,19 +197,19 @@ Launch an OpenArena server (or any q3 based game) with pre-configured features. 
   All paths are relative to the script location (this is to avoid problems when calling this script from cron jobs).
 
 == Exemples:
-  sh $SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver --- launch a server with gamemod oacl2010 and config oacl-edit-me.cfg and port 27960 on screen named oaclserver.
+  ./$SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver --- launch a server with gamemod oacl2010 and config oacl-edit-me.cfg and port 27960 on screen named oaclserver.
 
-  sh $SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver -n 3 --- launch 3 servers with gamemod oacl2010 and config oacl-edit-me0.cfg then oacl-edit-me1.cfg then oacl-edit-me2.cfg and port 27960-27962 on screens named oaclserver0 to oaclserver2.
+  ./$SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver -n 3 --- launch 3 servers with gamemod oacl2010 and config oacl-edit-me0.cfg then oacl-edit-me1.cfg then oacl-edit-me2.cfg and port 27960-27962 on screens named oaclserver0 to oaclserver2.
 
-  sh $SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver -r -a @daily --- kill a server and restart it, then add a cron job to automatically restart this server daily.
+  ./$SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver -r -a @daily --- kill a server and restart it, then add a cron job to automatically restart this server daily.
 
-  sh $SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver -a @hourly --- launch the server, then add a cron job to try each hour to relaunch this server (without -r the script don't kill the server, it relaunch it only if it doen't already exists).
+  ./$SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver -a @hourly --- launch the server, then add a cron job to try each hour to relaunch this server (without -r the script don't kill the server, it relaunch it only if it doen't already exists).
 
-  sh $SCRIPTNAME -n 0 -hb -tv -tvp 31000 -tvc gtv.cfg -tvm dpmaster.deathmask.net -tvmp 27950 --- launch no game server, only a GTV server with port 31000 and config gtv.cfg and register to the master listing server of OpenArena and send regular heartbeats to stay on the servers list.
+  ./$SCRIPTNAME -n 0 -hb -tv -tvp 31000 -tvc gtv.cfg -tvm dpmaster.deathmask.net -tvmp 27950 --- launch no game server, only a GTV server with port 31000 and config gtv.cfg and register to the master listing server of OpenArena and send regular heartbeats to stay on the servers list.
   
-  sh $SCRIPTNAME -n 0 -c oacl-edit-me -s oaclserver -ec 'morecommands.cfg' -ed 5 --- wait 5 seconds and sends all the commands contained inside 'morecommands.cfg' to the server at screen 'oaclserver'
+  ./$SCRIPTNAME -n 0 -c oacl-edit-me -s oaclserver -ec 'morecommands.cfg' -ed 5 --- wait 5 seconds and sends all the commands contained inside 'morecommands.cfg' to the server at screen 'oaclserver'
   
-  sh $SCRIPTNAME -n 0 -k -s oaclserver --- kill all servers with a screen name containing 'oaclserver'
+  ./$SCRIPTNAME -n 0 -k -s oaclserver --- kill all servers with a screen name containing 'oaclserver'
 "
   exit
 fi 

@@ -47,7 +47,7 @@ BASIC USAGE
 -----------
 
     # chmod +x oamps.sh
-    # sh oamps.sh --help
+    # ./oamps.sh --help
 
 More examples will be given in the help (oamps.sh --help), or look in the samples folder to find some batch examples.
 
@@ -67,6 +67,22 @@ No. The purpose of oamps is to manage servers, and you can't do that remotely, y
 Although oamps provide some functions to send commands to servers (such as --exec and --execdelay), they are merely provided as a mean to ease servers administration by automating some tasks, but remotely accessing a server via rcon is not in this scope. Plus, oamps only sends commands, it does not show any feedback or result.
 
 If you want to remotely manage your server via rcon, there are a lot of tools to do just that, such as crcon (opensource, http://sourceforge.net/projects/crcon/).
+
+- [[: not found
+Just use ./oamps.sh or bash oamps.sh instead of sh oamps.sh, this should fix your problem.
+
+- Cannot launch a server
+First make sure you chmodded both oamps.sh and your OA server binary:
+chmod +x oamps.sh
+chmod +x oa_ded.*
+
+If you still cannot launch a server, you can either check your gamelog (g_log) to see what happened and if there were any errors, or use oamps.sh -v to get a verbose information, which will tell you the full commandline that is used to launch your server.
+Then copy the commandline and try to launch the server by yourself to see the direct output.
+
+- Server crash: couldn't load default.cfg
+default.cfg is located inside the primary pak: pak0.pk3 . So if you get this error, this simply means that your binary could not find the paks. You should check your basepath and homepath if you specified +set fs_basepath or +set fs_homepath (the baseoa folder, containing the pk3, should reside INSIDE the homepath or basepath, so if you set basepath to "baseoa", you have to put your pk3s inside baseoa/baseoa/*.pk3 )
+
+- ALWAYS try "vstr nextmap" to check that the server finds all maps in rotation, else it will cause a bug where at the end of the game, the game will restart on the same map but players will be stuck at the waiting score screen!
 
 EXTENDED USAGE
 --------------
@@ -195,19 +211,19 @@ General Notes
 Exemples
 ---------
 
-  sh $SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver --- launch a server with gamemod oacl2010 and config oacl-edit-me.cfg and port 27960 on screen named oaclserver.
+  ./$SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver --- launch a server with gamemod oacl2010 and config oacl-edit-me.cfg and port 27960 on screen named oaclserver.
 
-  sh $SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver -n 3 --- launch 3 servers with gamemod oacl2010 and config oacl-edit-me0.cfg then oacl-edit-me1.cfg then oacl-edit-me2.cfg and port 27960-27962 on screens named oaclserver0 to oaclserver2.
+  ./$SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver -n 3 --- launch 3 servers with gamemod oacl2010 and config oacl-edit-me0.cfg then oacl-edit-me1.cfg then oacl-edit-me2.cfg and port 27960-27962 on screens named oaclserver0 to oaclserver2.
 
-  sh $SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver -r -a @daily --- kill a server and restart it, then add a cron job to automatically restart this server daily.
+  ./$SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver -r -a @daily --- kill a server and restart it, then add a cron job to automatically restart this server daily.
 
-  sh $SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver -a @hourly --- launch the server, then add a cron job to try each hour to relaunch this server (without -r the script don't kill the server, it relaunch it only if it doen't already exists).
+  ./$SCRIPTNAME -c oacl-edit-me -g oacl2010 -p 27960 -s oaclserver -a @hourly --- launch the server, then add a cron job to try each hour to relaunch this server (without -r the script don't kill the server, it relaunch it only if it doen't already exists).
 
-  sh $SCRIPTNAME -n 0 -hb -tv -tvp 31000 -tvc gtv.cfg -tvm dpmaster.deathmask.net -tvmp 27950 --- launch no game server, only a GTV server with port 31000 and config gtv.cfg and register to the master listing server of OpenArena and send regular heartbeats to stay on the servers list.
+  ./$SCRIPTNAME -n 0 -hb -tv -tvp 31000 -tvc gtv.cfg -tvm dpmaster.deathmask.net -tvmp 27950 --- launch no game server, only a GTV server with port 31000 and config gtv.cfg and register to the master listing server of OpenArena and send regular heartbeats to stay on the servers list.
   
-  sh $SCRIPTNAME -n 0 -c oacl-edit-me -s oaclserver -ec 'morecommands.cfg' -ed 5 --- wait 5 seconds and sends all the commands contained inside 'morecommands.cfg' to the server at screen 'oaclserver'
+  ./$SCRIPTNAME -n 0 -c oacl-edit-me -s oaclserver -ec 'morecommands.cfg' -ed 5 --- wait 5 seconds and sends all the commands contained inside 'morecommands.cfg' to the server at screen 'oaclserver'
   
-  sh $SCRIPTNAME -n 0 -k -s oaclserver --- kill all servers with a screen name containing 'oaclserver'
+  ./$SCRIPTNAME -n 0 -k -s oaclserver --- kill all servers with a screen name containing 'oaclserver'
 
 
 
