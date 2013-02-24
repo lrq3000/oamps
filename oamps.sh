@@ -40,10 +40,10 @@ SCRIPTPATH=$(dirname "$SCRIPT")
 # Note : In order to avoid duplicates in cron jobs, we use a conditionnal test here to try different options : first use sh, if non-existent use bash, if non-existent too use the default $SHELL binary
 BASHDEFAULTBIN=$(basename "$SHELL")
 BASHFOLDER=$(dirname "$SHELL")
-if [ -x "$BASHFOLDER/sh" ]; then
-	BASHBIN="sh"
-elif [ -x "$BASHFOLDER/bash" ]; then
+if [ -x "$BASHFOLDER/bash" ]; then
 	BASHBIN="bash"
+elif [ -x "$BASHFOLDER/sh" ]; then
+	BASHBIN="sh"
 else
 	BASHBIN="$BASHDEFAULTBIN"
 fi
