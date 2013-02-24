@@ -170,6 +170,7 @@ Launch an OpenArena server (or any q3 based game) with pre-configured features. 
   -tvm, --gtvmaster      apply a trick to register to the supplied master listing server (you can see the GTV server in the game browser !)
   Note : the trick uses hping3, so you need it to be installed on your system for the trick to work, and since hping3 is a root tool, it will ask your user (not root!) password to issue a sudo hping3 !
   Note2: you can also use hping v1, but NOT hping2 which contains a bug that prevent the script from working on certain systems.
+  Note3: you can set sudo without password using something like: user ALL = NOPASSWD: /bin/hping3
 
   -tvmp, --gtvmasterport port of the master listing server
 
@@ -577,16 +578,16 @@ function launch_heartbeat_screen {
   local localport=$2
   local master=$3
   printtext "Password needed to launch the heartbeater script..."
-  sudo hping3 --version #make sure that we have the permission required to use hping3, else in the next command it will ask in the screen, and so the user won't see the requirement of the password. You can also use NOPASSWD: /path/to/hping3 in your sudoer file (use visudo)
-  $screencmd $name sudo sh heartbeater_local-"$localport"_master-"$master".sh
-  if [ -n "$verbose" ]; then printtext "$screencmd $name sudo sh heartbeater_local-"$localport"_master-"$master".sh"; fi
+  sudo hping3 --version #make sure that we have the permission required to use hping3, else in the next command it will ask in the screen, and so the user won't see the requirement of the password. You can also use NOPASSWD: /path/to/hping3 in your sudoer file (use visudo). Something like: user ALL = NOPASSWD: /bin/hping3
+  $screencmd $name sudo bash heartbeater_local-"$localport"_master-"$master".sh
+  if [ -n "$verbose" ]; then printtext "$screencmd $name sudo bash heartbeater_local-"$localport"_master-"$master".sh"; fi
 }
 
 function launch_heartbeat_noscreen {
   local localport=$1
   local master=$2
-  sudo $noscreencmd  sh heartbeater_local-"$localport"_master-"$master".sh > /dev/null 2>&1 &
-  if [ -n "$verbose" ]; then printtext "sudo $noscreencmd  sh heartbeater_local-"$localport"_master-"$master".sh > /dev/null 2>&1 &"; fi
+  sudo $noscreencmd  bash heartbeater_local-"$localport"_master-"$master".sh > /dev/null 2>&1 &
+  if [ -n "$verbose" ]; then printtext "sudo $noscreencmd  bash heartbeater_local-"$localport"_master-"$master".sh > /dev/null 2>&1 &"; fi
 }
 
 function kill_screen { # kill one or several process contaning a similar name to the one specified

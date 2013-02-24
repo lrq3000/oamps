@@ -84,6 +84,11 @@ default.cfg is located inside the primary pak: pak0.pk3 . So if you get this err
 
 - ALWAYS try "vstr nextmap" to check that the server finds all maps in rotation, else it will cause a bug where at the end of the game, the game will restart on the same map but players will be stuck at the waiting score screen!
 
+- My GTV server can't be seen in dpmaster, and hping3 doesn't work!
+Hping3 requires to be used as root because it sends raw udp packets (and unix users can't do that), so you have to setup a SUDO setting to allow to sudo hping3 without asking for password.
+To do that, you can use visudo, and then write something like this: user ALL = NOPASSWD: /bin/hping3
+
+
 EXTENDED USAGE
 --------------
 
