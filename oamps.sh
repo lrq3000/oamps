@@ -17,8 +17,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #=== Declaring general vars
-version="1.6.7"
-lastchange="2012-03-26"
+version="1.6.8"
+lastchange="2013-03-10"
 basemod="baseoa" #original mod (game without any custom mod),edit this var for other q3 based games (or even q3 itself)
 basebin="oa_ded.i386" #server binary, edit it for other games
 basebinpath="./" #path to the server binary
@@ -122,7 +122,7 @@ Launch an OpenArena server (or any q3 based game) with pre-configured features. 
 
   -ht, --heartbeattime   sets the delay between each heartbeat to the master listing server (in seconds). Default : 5 min (300 sec).
 
-  -k, --killall          kill all game terminals containing a config name similar in --config, or all screen sessions containing a similar name in --screenname. This will be done prior launching any server.
+  -k, --killall          kill all game terminals containing a config name similar in --config, or all screen sessions containing a similar name in --screenname. This will be done prior launching any server, and will add a delay of 1 second to allow for the unix socket to release the port in use.
  
   -k2, --killall2        kill ALL game terminals, or ALL screen sessions (if using --screenname. Eg: -k2 -s), without any distinction.
 
@@ -421,6 +421,7 @@ function launch_server {
 		else
 			kill_screen "$screenname$nb" # else, for any other case, we kill the exact screen we are looking for (with the $nb, which may be empty)
 		fi
+        sleep 1 # when we restart a server, we need to wait a bit because else the unix socket won't have enough time to release the port, and when we will relaunch the server, the server will detect that the port is stil in use and automatically change the port!
 	fi
     check_server_screen "$screenname$nb" # we check if the server already exists with the same screenname (to not relaunch another server if it's already launched, by launching this function regularly, you can automatically relaunch the server if it gets down)
     checkservexists=$?
@@ -437,6 +438,7 @@ function launch_server {
 		else
 			kill_term "$config$nb"
 		fi
+        sleep 1 # when we restart a server, we need to wait a bit because else the unix socket won't have enough time to release the port, and when we will relaunch the server, the server will detect that the port is stil in use and automatically change the port!
 	fi
     check_server_noscreen "$config$nb" # check if a terminal exists with the same config in the parameters, to avoid doubling and launching twice the same server
     checkservexists=$?
@@ -475,6 +477,7 @@ function launch_gtv {
     if [ -n "$restart" ]; then
 	  printtext "Killing the GTV server(s) (by screenname) before restarting it..."
 	  kill_screen "$name"
+      sleep 1 # when we restart a server, we need to wait a bit because else the unix socket won't have enough time to release the port, and when we will relaunch the server, the server will detect that the port is stil in use and automatically change the port!
 	fi
     check_server_screen "$name"
     check=$?
@@ -487,6 +490,7 @@ function launch_gtv {
     if [ -n "$restart" ]; then
 	  printtext "Killing the GTV server(s) (by pid) before restarting it..."
 	  kill_term "$config"
+      sleep 1 # when we restart a server, we need to wait a bit because else the unix socket won't have enough time to release the port, and when we will relaunch the server, the server will detect that the port is stil in use and automatically change the port!
 	fi
     check_server_noscreen "$config"
     check=$?
@@ -1102,6 +1106,7 @@ if [ -n "$killall" ]; then
   fi
   printtext "Done !"
   printtext
+  sleep 1 # when we restart a server, we need to wait a bit because else the unix socket won't have enough time to release the port, and when we will relaunch the server, the server will detect that the port is stil in use and automatically change the port!
 fi
 
 # - Kill all servers if argument, without any distinction
@@ -1115,6 +1120,7 @@ if [ -n "$killall2" ]; then
   fi
   printtext "Done !"
   printtext
+  sleep 1 # when we restart a server, we need to wait a bit because else the unix socket won't have enough time to release the port, and when we will relaunch the server, the server will detect that the port is stil in use and automatically change the port!
 fi
 
 # - Start / Restart servers

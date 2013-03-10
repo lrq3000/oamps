@@ -1,6 +1,9 @@
 OPENARENA MULTI PURPOSE SERVERS LAUNCHER FOR LINUX (OAMPS.SH) CHANGELOG
 =======================================================================
 
+=== 1.6.7 to 1.6.8 (2013-03-10):
+- fixed: when -r was used, game servers would sometimes change port automatically because the unix socket hadn't the time to release the port. Added a delay of 1 second to fix that.
+
 === 1.5.8 to 1.6.7 (2012-03-26):
 - added: --countdown and --countdownmessage parameters to warn players before shutting down / restarting the server and disconnecting them along the way
 - fixed: --config can now contain the extension .cfg or not, as you like
