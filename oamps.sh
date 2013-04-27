@@ -17,8 +17,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #=== Declaring general vars
-version="1.6.8"
-lastchange="2013-03-10"
+version="1.6.9"
+lastchange="2013-04-27"
 basemod="baseoa" #original mod (game without any custom mod),edit this var for other q3 based games (or even q3 itself)
 basebin="oa_ded.i386" #server binary, edit it for other games
 basebinpath="./" #path to the server binary
@@ -154,9 +154,9 @@ Launch an OpenArena server (or any q3 based game) with pre-configured features. 
 
   -tv, --gtv             enable gtv launching (one at a time).
   
-  -tvb, --gtvbasepath    gtv basepath - useful to tell GTV where to find basemod folder (baseoa) and config folder (gtv3)
+  -tvb, --gtvbasepath    gtv basepath - useful to tell GTV where to find basemod folder (baseoa) and temp delay folder (gtv3/delay must be inside basepath), and also config folder (gtv3) but you can place config files in homepath.
   
-  -tvh, --gtvhomepath    gtv homepath - Note: homepath should be the same as homepath, for GTV to find the required mod's pk3s, but NOT to find basemod folder nor GTV config files (look for gtvbasepath)!
+  -tvh, --gtvhomepath    gtv homepath - Note: as for the standard engine, GTV will look for pk3s inside basepath then inside homepath (so your pk3 can be in either), same for gtv3 config files, EXCEPT for gtv3/delay (if delay is enabled) which MUST be in basepath.
 
   -tvc, --gtvconfig      gtv config (with extension!), defaults to gtv.cfg if argument not supplied
   Note: must reside in gtvbasepath/gtv3 folder! It won't work in any other place (nor in gtvhomepath, contrary to homepath for game servers!)
