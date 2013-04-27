@@ -5,7 +5,17 @@ TODO
 ----
 - oamps log reader
 - use strace to watch processes for crash ?
-- implement an integration with monit ? http://mmonit.com/monit/
+- enhance monitoring with realtime monitoring by implementing an integration with monit ? http://mmonit.com/monit/
+or another monitoring: runit runsv? http://smarden.org/runit/
+or by calling as subprocesses (how to do that with screens?), eg:
+    until myserver; do
+        echo "Server 'myserver' crashed with exit code $?.  Respawning.." >&2
+        sleep 1
+    done
+Anyway, we will have to adapt those implementations by adding in the checking loop two things:
+    * regular checking of crashlog file, which says if the server has crashed (because sometimes the server crash but the process is still in memory! the server doesn't close!)
+    * a way to force restart (but runit runsv already implements that and anyway it should be pretty much the same as currently: relaunch oamps.sh with -f to force restart, else the new paradigm will be that oamps.sh will always be in memory to check for the servers instead of being relaunched every hours)
+    * checking for multiple servers launched at once (-m option), this one will be harder
 - hping3 used instead of hping (hping still works but hping2 produce a bug and does not work, and is aliased hping, so now hping3 is required, or you can revert to hping v1 if you want)
 - no more asking of sudo password if unnecessary to launch hping
 - toadd: noscreen kill -k should kill only servers with the same port if port is specified
